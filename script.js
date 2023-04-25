@@ -14,17 +14,20 @@ function findMatches(wordToMatch, cities) {
         return place.city.match(regex) || place.state.match(regex)
     })
 }
+function numberWithCommas(x){
+return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 function displayMatches(e) {
     const matchArray = findMatches(e.target.value, cities)
     const html = matchArray.map((place) => {
         const regex = new RegExp(e.target.value, "gi")
         const cityName = place.city.replace(regex, `<span class="hl">${this.value}</span>`);
         const stateName = place.state.replace(regex, `<span class="hl">${this.value}</span>`);
-        console.log(cityName);
+        // console.log(cityName);
         return `
     <li>
     <span class="name">${cityName}, ${stateName}</span>
-    <span class="population">${place.population}</span>
+    <span class="population">${numberWithCommas(place.population)}</span>
     </li>
     `
     }).join('')
